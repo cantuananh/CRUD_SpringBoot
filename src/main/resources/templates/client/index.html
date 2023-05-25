@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home page</title>
+    <link rel="stylesheet" href="/bootstrap.min.css">
+</head>
+<body>
+<div class="container-fluid text-center">
+    <h1>Home page</h1>
+    <div>
+        <table style="width: 70%; margin: 0 auto" class="table table-bordered">
+            <thead>
+            <th>ID</th>
+            <th>Product name</th>
+            <th>Product detail</th>
+            <th>Price</th>
+            <th>Manufacturer</th>
+            <th>Action</th>
+            </thead>
+            <tbody>
+            <th:block th:each="item: ${listProduct}">
+                <tr>
+                    <td>[[${item.id}]]</td>
+                    <td>[[${item.name}]]</td>
+                    <td>[[${item.productDetail}]]</td>
+                    <td>[[${item.price}]]</td>
+                    <td>[[${item.manufacturer}]]</td>
+                </tr>
+            </th:block>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>
