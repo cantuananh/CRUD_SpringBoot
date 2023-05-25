@@ -16,7 +16,17 @@ public class ProductController {
     @Autowired
     private ProductService productService;
 
-    @GetMapping("/products")
+    //client
+    @GetMapping("/client/home")
+    public String getAllProduct(Model model) {
+        List<Product> listProduct = productService.getAllProducts();
+        model.addAttribute("listProduct", listProduct);
+
+        return "/client/home";
+    }
+
+    //admin
+    @GetMapping("/admin/products")
     public String showAllProduct(Model model) {
         List<Product> listProducts = productService.getAllProducts();
         model.addAttribute("listProducts", listProducts);
@@ -24,15 +34,7 @@ public class ProductController {
         return "/admin/list";
     }
 
-//    @GetMapping("/client/index")
-//    public String getAllProduct(Model model) {
-//        List<Product> listProducts = productService.getAllProducts();
-//        model.addAttribute("listProduct", listProducts);
-//
-//        return "/client/index";
-//    }
-
-    @GetMapping("/products/add")
+    @GetMapping("/admin/products/add")
     public String showNewForm(Model model) {
         model.addAttribute("product", new Product());
         model.addAttribute("pageTitle", "Add new product");
@@ -40,15 +42,15 @@ public class ProductController {
         return "/admin/create_product_form";
     }
 
-    @PostMapping("/products/save")
+    @PostMapping("/admin/products/save")
     public String saveProduct(Product product, RedirectAttributes redirectAttributes) {
         productService.save(product);
         redirectAttributes.addFlashAttribute("message", "Create new product success!");
 
-        return "redirect:/products";
+        return "redirect:/admin/products";
     }
 
-    @GetMapping("/products/edit/{id}")
+    @GetMapping("/admin/products/edit/{id}")
     public String editInformationProduct(@PathVariable("id") Integer id, Model model, RedirectAttributes redirectAttributes) throws ProductNotFoundException {
         try {
             Product product = productService.getProductWith(id);
@@ -59,15 +61,15 @@ public class ProductController {
             return "/admin/create_product_form";
         } catch (ProductNotFoundException e) {
             redirectAttributes.addFlashAttribute("message", e.getMessage());
-            return "redirect:/products";
+            return "redirect:/admin/products";
         }
     }
 
-    @GetMapping("/products/delete/{id}")
+    @GetMapping("/admin/products/delete/{id}")
     public String deleteProduct(@PathVariable("id") Integer id, RedirectAttributes redirectAttributes) throws ProductNotFoundException {
         productService.deleteProductWith(id);
         redirectAttributes.addFlashAttribute("message", "Delete success!");
 
-        return "redirect:/products";
+        return "redirect:/admin/products";
     }
 }

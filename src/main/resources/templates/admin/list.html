@@ -2,13 +2,13 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Manager Product</title>
+    <title>Admin page</title>
     <link rel="stylesheet" href="/bootstrap.min.css">
 </head>
 <body>
 <div class="container-fluid text-center">
     <div><h1>Manager Product</h1></div>
-    <a th:href="@{/products/add}" class="h3 mr-2">Add new products</a>
+    <a th:href="@{/admin/products/add}" class="h3 mr-2">Add new products</a>
     <div th:if="${message}" class="alert alert-success text-center">
         [[${message}]]
     </div>
@@ -31,11 +31,11 @@
                     <td>[[${item.price}]]</td>
                     <td>[[${item.manufacturer}]]</td>
                     <td>
-                        <a th:href="@{'/products/edit/' + ${item.id}}"
+                        <a th:href="@{'/admin/products/edit/' + ${item.id}}"
                            class="h4"
                            style="margin-right: 1.5rem"
                            title="edit user">edit</a>
-                        <a th:href="@{'/products/delete/' + ${item.id}}"
+                        <a th:href="@{'/admin/products/delete/' + ${item.id}}"
                            class="h4 ">delete</a>
                     </td>
                 </tr>
